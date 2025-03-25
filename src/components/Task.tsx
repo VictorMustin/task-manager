@@ -71,9 +71,9 @@ export function Task({ task, onDelete, onMove }: TaskProps) {
             <GripVertical className='h-4 w-4 text-muted-foreground' />
             <span className='sr-only'>Drag handle</span>
           </Button>
-          <div className='mr-auto'>
-            <h3 className='font-medium'>{task.title}</h3>
-            <p className='text-muted-foreground text-sm'>{task.description}</p>
+          <div className='mr-auto overflow-hidden'>
+            <h3 className='font-medium truncate'>{task.title}</h3>
+            <p className='text-muted-foreground text-sm whitespace-normal break-words'>{task.description}</p>
           </div>
 
           <DropdownMenu>
