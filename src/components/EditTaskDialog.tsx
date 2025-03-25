@@ -10,43 +10,45 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-
+import { Task } from '@/types/task'
+import { useTaskContext } from '@/providers/TaskProvider'
 interface EditTaskDialogProps {
   isOpen: boolean
-  onClose: () => void
-  onSave: (title: string, description: string) => void
-  initialTitle: string
-  initialDescription: string
+  onOpenChange: (open: boolean) => void
+  task: Task
 }
 
 export function EditTaskDialog({
   isOpen,
-  onClose,
-  onSave,
-  initialTitle,
-  initialDescription,
+  onOpenChange,
+  task,
 }: EditTaskDialogProps) {
-  const [title, setTitle] = useState(initialTitle)
-  const [description, setDescription] = useState(initialDescription)
+  const [title, setTitle] = useState(task.title)
+  const [description, setDescription] = useState(task.description)
+
+  const { editTask } = useTaskContext()
 
   // Reset form values when dialog opens or initialValues change
   useEffect(() => {
     if (isOpen) {
-      setTitle(initialTitle)
-      setDescription(initialDescription)
+      setTitle(task.title)
+      setDescription(task.description)
     }
-  }, [isOpen, initialTitle, initialDescription])
+  }, [isOpen, task.title, task.description])
 
   const handleSave = () => {
     if (title.trim()) {
-      onSave(title, description)
-      onClose()
+      editTask(task.id, title, description)
+      onOpenChange(false)
     }
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='sm:max-w-[425px]' aria-describedby="edit-task-description">
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent
+        className='sm:max-w-[425px]'
+        aria-describedby='edit-task-description'
+      >
         <DialogHeader>
           <DialogTitle>Edit Task</DialogTitle>
         </DialogHeader>
@@ -72,7 +74,7 @@ export function EditTaskDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button variant='outline' onClick={onClose}>
+          <Button variant='outline' onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
           <Button onClick={handleSave} disabled={!title.trim()}>

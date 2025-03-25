@@ -11,18 +11,9 @@ import { CSS } from '@dnd-kit/utilities'
 interface ColumnProps {
   id: TaskStage
   tasks: any[]
-  onDelete: (id: string) => void
-  onMove: (id: string, stage: TaskStage) => void
-  onAddTask: (title: string, description: string, stage: TaskStage) => void
 }
 
-export function Column({
-  id,
-  tasks,
-  onDelete,
-  onMove,
-  onAddTask,
-}: ColumnProps) {
+export function Column({ id, tasks }: ColumnProps) {
   const { setNodeRef } = useDroppable({
     id,
   })
@@ -55,31 +46,18 @@ export function Column({
             strategy={verticalListSortingStrategy}
           >
             {stageTasks.map((task) => (
-              <AnimatedTask
-                key={`task-${task.id}`}
-                task={task}
-                onDelete={onDelete}
-                onMove={onMove}
-              />
+              <AnimatedTask key={`task-${task.id}`} task={task} />
             ))}
           </SortableContext>
         </div>
-        <AddTaskButton stage={id} onAddTask={onAddTask} />
+        <AddTaskButton stage={id} />
       </div>
     </div>
   )
 }
 
 // Create a wrapper component that adds animation to tasks
-function AnimatedTask({
-  task,
-  onDelete,
-  onMove,
-}: {
-  task: any
-  onDelete: (id: string) => void
-  onMove: (id: string, stage: TaskStage) => void
-}) {
+function AnimatedTask({ task }: { task: any }) {
   const { setNodeRef, transform, transition, isDragging } = useSortable({
     id: task.id,
   })
@@ -96,7 +74,7 @@ function AnimatedTask({
       style={style}
       className='transition-transform duration-200'
     >
-      <Task task={task} onDelete={onDelete} onMove={onMove} />
+      <Task task={task} />
     </div>
   )
 }

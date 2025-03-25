@@ -29,16 +29,8 @@ export const STAGE_ICONS = {
 }
 
 function App() {
-  const {
-    tasks,
-    activeTask,
-    addTask,
-    deleteTask,
-    moveTask,
-    handleDragStart,
-    handleDragOver,
-    handleDragEnd,
-  } = useTaskContext()
+  const { tasks, activeTask, handleDragStart, handleDragOver, handleDragEnd } =
+    useTaskContext()
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -68,14 +60,7 @@ function App() {
         >
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             {STAGES.map((stage) => (
-              <Column
-                key={stage}
-                id={stage}
-                tasks={tasks}
-                onDelete={deleteTask}
-                onMove={moveTask}
-                onAddTask={addTask}
-              />
+              <Column key={stage} id={stage} tasks={tasks} />
             ))}
           </div>
 

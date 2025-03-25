@@ -13,22 +13,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog'
+import { useTaskContext } from '@/providers/TaskProvider'
 
 interface AddTaskButtonProps {
   stage: TaskStage
-  onAddTask: (title: string, description: string, stage: TaskStage) => void
 }
 
-export function AddTaskButton({ stage, onAddTask }: AddTaskButtonProps) {
+export function AddTaskButton({ stage }: AddTaskButtonProps) {
   const [newTaskTitle, setNewTaskTitle] = useState('')
   const [newTaskDescription, setNewTaskDescription] = useState('')
   const [open, setOpen] = useState(false)
+
+  const { addTask } = useTaskContext()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!newTaskTitle.trim()) return
 
-    onAddTask(newTaskTitle.trim(), newTaskDescription.trim(), stage)
+    addTask(newTaskTitle.trim(), newTaskDescription.trim(), stage)
     setNewTaskTitle('')
     setNewTaskDescription('')
     setOpen(false)
@@ -66,7 +68,11 @@ export function AddTaskButton({ stage, onAddTask }: AddTaskButtonProps) {
             />
           </div>
           <DialogFooter>
-            <Button type='button' variant='outline' onClick={() => setOpen(false)}>
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </Button>
             <Button type='submit'>Add Task</Button>

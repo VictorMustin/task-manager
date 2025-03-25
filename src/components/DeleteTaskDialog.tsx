@@ -7,40 +7,42 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { Task } from '@/types/task'
+import { useTaskContext } from '@/providers/TaskProvider'
 
 interface DeleteTaskDialogProps {
   isOpen: boolean
-  onClose: () => void
-  onConfirm: () => void
-  taskTitle: string
+  onOpenChange: (open: boolean) => void
+  task: Task
 }
 
 export function DeleteTaskDialog({
   isOpen,
-  onClose,
-  onConfirm,
-  taskTitle,
+  onOpenChange,
+  task,
 }: DeleteTaskDialogProps) {
+  const { deleteTask } = useTaskContext()
+
   const handleConfirm = () => {
-    onConfirm()
-    onClose()
+    deleteTask(task.id)
+    onOpenChange(false)
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>
             Delete
             <span className='inline-block max-w-64 truncate align-bottom mx-1'>
-              {taskTitle}
+              {task.title}
             </span>
             ?
           </DialogTitle>
           <DialogDescription>This action cannot be undone.</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant='outline' onClick={onClose}>
+          <Button variant='outline' onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
           <Button variant='destructive' onClick={handleConfirm}>
