@@ -3,10 +3,11 @@ import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Task } from './Task'
 import { TaskStage } from '../types/task'
-import { STAGE_ICONS } from '../App'
+import { STAGE_ICONS, STAGE_COLORS } from '../App'
 import { AddTaskButton } from './AddTaskDialog'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { cn } from '../lib/utils'
 
 interface ColumnProps {
   id: TaskStage
@@ -25,13 +26,11 @@ export function Column({ id, tasks }: ColumnProps) {
   return (
     <div key={id} id={id}>
       <div
-        className='flex items-center gap-2 px-2 py-1 rounded-md w-fit font-medium mb-4'
-        style={{
-          color: `var(--stage-${id.toLowerCase().replace(' ', '-')}-color)`,
-          backgroundColor: `color-mix(in srgb, var(--stage-${id
-            .toLowerCase()
-            .replace(' ', '-')}-color) 10%, transparent)`,
-        }}
+        className={cn(
+          'flex items-center gap-2 px-2 py-1 rounded-md w-fit font-medium mb-4',
+          `text-${STAGE_COLORS[id]}`,
+          `bg-${STAGE_COLORS[id]}/10`
+        )}
       >
         {React.createElement(STAGE_ICONS[id], {
           size: 18,

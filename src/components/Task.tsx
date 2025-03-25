@@ -25,7 +25,6 @@ export function Task({ task }: TaskProps) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const { moveTask } = useTaskContext()
 
-  // Only use sortable functionality if the card is draggable
   const { attributes, listeners, setNodeRef, isDragging } = useSortable({
     id: task.id,
   })

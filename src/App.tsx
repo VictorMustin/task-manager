@@ -28,6 +28,12 @@ export const STAGE_ICONS = {
   Complete: CheckCircle2,
 }
 
+export const STAGE_COLORS = {
+  Pending: 'pending',
+  'In Progress': 'progress',
+  Complete: 'complete',
+}
+
 function App() {
   const { tasks, activeTask, handleDragStart, handleDragOver, handleDragEnd } =
     useTaskContext()
