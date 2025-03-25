@@ -25,7 +25,7 @@ A responsive and interactive task management application built with React, TypeS
 - React 19 with TypeScript
 - Context API for state management
 - Tailwind CSS for styling
-- shadcn/ui for UI components (accessible, customizable components in your codebase)
+- shadcn/ui for UI components
 - @dnd-kit for drag and drop functionality
 
 ## Getting Started
@@ -35,18 +35,17 @@ A responsive and interactive task management application built with React, TypeS
 
 ```bash
 npm install
-# or yarn install
 ```
 
 3. Start the development server:
 
 ```bash
 npm run dev
-# or yarn dev
 ```
 
 4. Open your browser and navigate to `http://localhost:5174`
 
 ## Development Notes
 
-This project was completed in approximately 3 hours. The implementation uses React Context for state management and leverages the shadcn/ui component library, which provides highly customizable components directly in the codebase rather than hidden in node_modules.
+- This project was completed in approximately 3 hours.
+- The implementation leverages the shadcn/ui component library, which is great because it provides components that are directly in your codebase rather than hidden in node_modules, which means they can be customized easily. Also they are best in class in accessibility and provide a solid foundation for building a consistent UI.
