@@ -30,7 +30,13 @@ export function DeleteTaskDialog({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Delete {taskTitle} ?</DialogTitle>
+          <DialogTitle>
+            Delete
+            <span className='inline-block max-w-64 truncate align-bottom mx-1'>
+              {taskTitle}
+            </span>
+            ?
+          </DialogTitle>
           <DialogDescription>This action cannot be undone.</DialogDescription>
         </DialogHeader>
         <DialogFooter>
