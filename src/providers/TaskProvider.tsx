@@ -42,6 +42,28 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
   const [activeTask, setActiveTask] = useState<Task | null>(null)
 
+  // Listen for storage events from other tabs
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'tasks' && event.newValue) {
+        try {
+          const newTasks = JSON.parse(event.newValue);
+          setTasks(newTasks);
+        } catch (error) {
+          console.error('Error parsing tasks from storage event:', error);
+        }
+      }
+    };
+
+    // Add event listener for storage events
+    window.addEventListener('storage', handleStorageChange);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   useEffect(() => {
     // Deduplicate before saving to localStorage
     const uniqueTasks = deduplicateTasks(tasks)
