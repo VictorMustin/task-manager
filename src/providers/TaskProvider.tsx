@@ -41,7 +41,6 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   })
 
   const [activeTask, setActiveTask] = useState<Task | null>(null)
-  const [activeTaskStage, setActiveTaskStage] = useState<TaskStage | null>(null)
 
   useEffect(() => {
     // Deduplicate before saving to localStorage
@@ -97,7 +96,6 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
     // Store the original stage of the task being dragged
     const task = tasks.find((t) => t.id === activeId)
     if (task) {
-      setActiveTaskStage(task.stage)
       setActiveTask(task)
     }
   }
@@ -152,7 +150,6 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
   const handleDragEnd = () => {
     setActiveTask(null)
-    setActiveTaskStage(null)
   }
 
   return (

@@ -54,7 +54,7 @@ export function Column({
             items={taskIds}
             strategy={verticalListSortingStrategy}
           >
-            {stageTasks.map((task, index) => (
+            {stageTasks.map((task) => (
               <AnimatedTask
                 key={`task-${task.id}`}
                 task={task}
@@ -80,14 +80,9 @@ function AnimatedTask({
   onDelete: (id: string) => void
   onMove: (id: string, stage: TaskStage) => void
 }) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: task.id })
+  const { setNodeRef, transform, transition, isDragging } = useSortable({
+    id: task.id,
+  })
 
   const style = {
     transform: CSS.Transform.toString(transform),
