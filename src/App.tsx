@@ -16,6 +16,8 @@ import { ClipboardList, Clock, CheckCircle2 } from 'lucide-react'
 import { Column } from './components/Column'
 import { TaskStage } from './types/task'
 import { ModeToggle } from './components/ThemeToggle'
+import { Button } from './components/ui/button'
+import { Github } from 'lucide-react'
 
 // Move constants directly into App.tsx
 export const STAGES: TaskStage[] = ['Pending', 'In Progress', 'Complete']
@@ -45,8 +47,8 @@ function App() {
   )
 
   return (
-    <div className='min-h-screen bg-background p-8'>
-      <div className='max-w-6xl mx-auto'>
+    <div className='min-h-screen bg-background p-8 flex flex-col'>
+      <div className='max-w-6xl mx-auto w-full flex-1'>
         <div className='flex justify-between items-center mb-8'>
           <h1 className='text-4xl font-bold'>Task Manager</h1>
           <ModeToggle />
@@ -86,6 +88,23 @@ function App() {
             )}
         </DndContext>
       </div>
+
+      <footer className='mt-auto pt-8 pb-4 w-full'>
+        <div className='max-w-6xl mx-auto flex flex-col items-center gap-2'>
+          <Button variant='link' asChild>
+            <a
+              href='https://github.com/VictorMustin/task-manager'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center gap-2'
+            >
+              <Github size={18} />
+              View on GitHub
+            </a>
+          </Button>
+          <p className='text-sm text-muted-foreground'>Made by Victor Mustin</p>
+        </div>
+      </footer>
     </div>
   )
 }
